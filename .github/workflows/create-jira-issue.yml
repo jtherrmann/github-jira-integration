@@ -1,0 +1,25 @@
+name: Create JIRA issue
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  create-jira-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: atlassian/gajira-login@v3
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+
+      - uses: atlassian/gajira-create@v3
+        with:
+          project: ${{ secrets.JIRA_PROJECT }}
+          issuetype: Task
+          summary: Issue Summary
+          description: This is the issue description.
+          fields: '{"customfield_10171": "test"}' # TODO what is this for?
+
+      - run: echo "Issue ${{ steps.create.outputs.issue }} was created"
