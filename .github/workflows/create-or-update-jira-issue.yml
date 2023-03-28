@@ -32,7 +32,7 @@ jobs:
         with:
           actions: update-issue
           body: "<!-- This line was added by GitHub Actions. Do not remove! -->\n
-            [steps.create_jira_issue.outputs.issue]
+            [${{ steps.create_jira_issue.outputs.issue }}]
             (${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create_jira_issue.outputs.issue }})\n\n
             ${{ github.event.issue.body }}"
 
