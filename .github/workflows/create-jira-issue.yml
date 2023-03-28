@@ -1,4 +1,4 @@
-name: Create or update JIRA issue
+name: Create JIRA issue
 
 on:
   issues:
@@ -34,27 +34,3 @@ jobs:
           body: "<!-- This line was added by GitHub Actions. Do not remove! -->\n\
             ${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create_jira_issue.outputs.issue }}\n\n\
             ${{ github.event.issue.body }}"
-
-  # TODO also check if has JIRA label
-  update-jira-issue:
-    if: github.event.label.name == 'in progress' || github.event.label.name == 'in test'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Login to JIRA
-        uses: atlassian/gajira-login@v3
-        env:
-          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
-          JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
-          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-
-      - name: Get JIRA issue key from GitHub issue body
-        id: jira_issue_key
-        uses: atlassian/gajira-find-issue-key@v3
-        with:
-          string: ${{ github.event.issue.body }}
-
-      - name: Update JIRA issue
-        uses: atlassian/gajira-transition@v3
-        with:
-          issue: ${{ steps.jira_issue_key.outputs.issue }}
-          transition: ${{ github.event.label.name }}
