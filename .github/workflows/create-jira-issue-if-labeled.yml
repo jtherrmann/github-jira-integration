@@ -32,9 +32,11 @@ jobs:
         with:
           labels: 'Create JIRA issue'
           fail_on_error: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       # Add new label so that users can easily identify which GitHub issues have corresponding JIRA issues.
       - name: Add new label
         uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: JIRA
+          github_token: ${{ secrets.GITHUB_TOKEN }}
