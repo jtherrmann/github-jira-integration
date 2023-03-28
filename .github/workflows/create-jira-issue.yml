@@ -2,19 +2,22 @@ name: Create JIRA issue
 
 on:
   issues:
-    types: [opened]
+    types: [labeled]
 
 jobs:
   create-jira-issue:
     runs-on: ubuntu-latest
     steps:
-      - uses: atlassian/gajira-login@v3
+      - name: Login to JIRA
+        uses: atlassian/gajira-login@v3
         env:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
 
-      - uses: atlassian/gajira-create@v3
+      - name: Create JIRA issue
+        if: contains(github.event.issue.labels.*.name, 'JIRA')
+        uses: atlassian/gajira-create@v3
         with:
           project: ${{ secrets.JIRA_PROJECT }}
           issuetype: Task
