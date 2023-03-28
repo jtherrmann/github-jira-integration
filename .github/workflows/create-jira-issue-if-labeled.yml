@@ -31,7 +31,7 @@ jobs:
       - name: Remove old label
         uses: actions-ecosystem/action-remove-labels@v1
         with:
-          labels: 'Create JIRA issue'
+          labels: Create JIRA issue
           fail_on_error: true
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -45,5 +45,5 @@ jobs:
       - name: Comment JIRA issue URL
         uses: actions-ecosystem/action-create-comment@v1
         with:
-          body: ${{ steps.create_jira_issue.outputs.issue }}
+          body: ${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create_jira_issue.outputs.issue }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
