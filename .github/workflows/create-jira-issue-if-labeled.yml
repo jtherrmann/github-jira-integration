@@ -31,6 +31,7 @@ jobs:
         uses: actions-ecosystem/action-remove-labels@v1
         with:
           labels: 'Create JIRA issue'
+          fail_on_error: true
 
       # Add new label so that users can easily identify which GitHub issues have corresponding JIRA issues.
       - name: Add new label
