@@ -36,13 +36,6 @@ jobs:
             (${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create_jira_issue.outputs.issue }})\n\n\
             ${{ github.event.issue.body }}"
 
-# TODO remove if not needed
-#      - name: Comment JIRA issue URL
-#        uses: actions-ecosystem/action-create-comment@v1
-#        with:
-#          body: ${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create_jira_issue.outputs.issue }}
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-
 # TODO
 #  update-jira-issue:
 #    if: github.event.label.name == 'in progress'
