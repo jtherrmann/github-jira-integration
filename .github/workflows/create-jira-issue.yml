@@ -20,6 +20,6 @@ jobs:
           issuetype: Task
           summary: Issue Summary
           description: This is the issue description.
-          fields: '{"customfield_10171": "test"}' # TODO what is this for?
+          # fields: '{"customfield_10171": "test"}' # TODO what is this for?
 
       - run: echo "Issue ${{ steps.create.outputs.issue }} was created"
