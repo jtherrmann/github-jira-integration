@@ -1,4 +1,4 @@
-name: Create JIRA issue
+name: Create JIRA issue if labeled
 
 on:
   issues:
@@ -6,6 +6,7 @@ on:
 
 jobs:
   create-jira-issue:
+    if: contains(github.event.issue.labels.*.name, 'Create JIRA issue')
     runs-on: ubuntu-latest
     steps:
       - name: Login to JIRA
@@ -16,11 +17,23 @@ jobs:
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
 
       - name: Create JIRA issue
-        if: contains(github.event.issue.labels.*.name, 'JIRA')
         uses: atlassian/gajira-create@v3
         with:
           project: ${{ secrets.JIRA_PROJECT }}
           issuetype: Task
           summary: '[${{ github.repository }}#${{ github.event.issue.number }}] ${{ github.event.issue.title }}'
           description: ${{ github.event.issue.html_url }}
-          # fields: '{"customfield_10171": "test"}' # TODO what is this for?
+
+      - uses: actions/checkout@v2
+
+      # Remove old label to prevent this job from running whenever the issue is labeled.
+      - name: Remove old label
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          labels: 'Create JIRA issue'
+
+      # Add new label so that users can easily identify which GitHub issues have corresponding JIRA issues.
+      - name: Add new label
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: JIRA
