@@ -25,8 +25,6 @@ jobs:
           summary: '[${{ github.repository }}#${{ github.event.issue.number }}] ${{ github.event.issue.title }}'
           description: ${{ github.event.issue.html_url }}
 
-      - uses: actions/checkout@v2
-
       - name: Add JIRA issue key to GitHub issue body
         uses: actions-cool/issues-helper@v3
         with:
