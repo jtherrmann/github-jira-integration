@@ -6,7 +6,7 @@ on:
 
 jobs:
   create-jira-issue:
-    if: github.event.label.name == JIRA
+    if: github.event.label.name == 'JIRA'
     runs-on: ubuntu-latest
     steps:
       - name: Login to JIRA
