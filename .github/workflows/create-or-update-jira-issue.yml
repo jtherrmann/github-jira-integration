@@ -1,4 +1,4 @@
-name: Create JIRA issue if labeled
+name: Create or update JIRA issue
 
 on:
   issues:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   create-jira-issue:
-    if: contains(github.event.issue.labels.*.name, 'Create JIRA issue')
+    if: github.event.label.name == JIRA
     runs-on: ubuntu-latest
     steps:
       - name: Login to JIRA
@@ -27,23 +27,10 @@ jobs:
 
       - uses: actions/checkout@v2
 
-      # Remove old label to prevent this job from running whenever the issue is labeled.
-      - name: Remove old label
-        uses: actions-ecosystem/action-remove-labels@v1
-        with:
-          labels: Create JIRA issue
-          fail_on_error: true
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      # Add new label so that users can easily identify which GitHub issues have corresponding JIRA issues.
-      - name: Add new label
-        uses: actions-ecosystem/action-add-labels@v1
-        with:
-          labels: JIRA
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Comment JIRA issue URL
         uses: actions-ecosystem/action-create-comment@v1
         with:
           body: ${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create_jira_issue.outputs.issue }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
+# TODO update JIRA issue
