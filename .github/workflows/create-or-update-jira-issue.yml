@@ -27,10 +27,29 @@ jobs:
 
       - uses: actions/checkout@v2
 
-      - name: Comment JIRA issue URL
-        uses: actions-ecosystem/action-create-comment@v1
+      - name: Add JIRA issue key
+        uses: actions-cool/issues-helper@v3
         with:
-          body: ${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create_jira_issue.outputs.issue }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          actions: update-issue
+          body: '${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create_jira_issue.outputs.issue }}\n\n${{ github.event.issue.body }}'
 
-# TODO update JIRA issue
+# TODO remove if not needed
+#      - name: Comment JIRA issue URL
+#        uses: actions-ecosystem/action-create-comment@v1
+#        with:
+#          body: ${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create_jira_issue.outputs.issue }}
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+# TODO
+#  update-jira-issue:
+#    if: github.event.label.name == 'in progress'
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Login to JIRA
+#        uses: atlassian/gajira-login@v3
+#        env:
+#          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+#          JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+#          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+#
+#      - name: Update JIRA issue
