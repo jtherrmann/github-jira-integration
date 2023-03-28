@@ -31,10 +31,10 @@ jobs:
         uses: actions-cool/issues-helper@v3
         with:
           actions: update-issue
-          body: "<!-- This line was added by GitHub Actions. Do not remove! -->\n"
-            "[steps.create_jira_issue.outputs.issue]"
-            "(${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create_jira_issue.outputs.issue }})\n\n"
-            "${{ github.event.issue.body }}"
+          body: "<!-- This line was added by GitHub Actions. Do not remove! -->\n
+            [steps.create_jira_issue.outputs.issue]
+            (${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create_jira_issue.outputs.issue }})\n\n
+            ${{ github.event.issue.body }}"
 
 # TODO remove if not needed
 #      - name: Comment JIRA issue URL
