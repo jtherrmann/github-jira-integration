@@ -57,4 +57,4 @@ jobs:
         uses: atlassian/gajira-transition@v3
         with:
           issue: ${{ steps.jira_issue_key.outputs.issue }}
-          transition: github.event.label.name
+          transition: ${{ github.event.label.name }}
