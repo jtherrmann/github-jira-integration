@@ -21,5 +21,3 @@ jobs:
           summary: ${{ github.repository }} ${{ github.event.issue.title }}
           description: ${{ github.event.issue.url }}
           # fields: '{"customfield_10171": "test"}' # TODO what is this for?
-
-      - run: echo "Issue ${{ steps.create.outputs.issue }} was created"
