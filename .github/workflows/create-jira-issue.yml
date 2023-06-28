@@ -22,13 +22,13 @@ jobs:
         with:
           project: ${{ secrets.JIRA_PROJECT }}
           issuetype: Task
-          summary: '[${{ github.repository }}#${{ github.event.issue.number }}] ${{ github.event.issue.title }}'
+          summary: ${{ github.event.issue.title }}
           description: ${{ github.event.issue.html_url }}
 
       - name: Add JIRA issue key to GitHub issue body
         uses: actions-cool/issues-helper@v3
         with:
           actions: update-issue
-          body: "<!-- This line was added by GitHub Actions. Do not remove! -->\n\
-            ${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create_jira_issue.outputs.issue }}\n\n\
+          body: "**JIRA:** ${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create_jira_issue.outputs.issue }}\n\
+            <!-- The previous line was added by GitHub Actions. It should remain as the first line in this description. -->\n\n\
             ${{ github.event.issue.body }}"
