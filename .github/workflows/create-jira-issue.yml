@@ -9,7 +9,7 @@ jobs:
     uses: jtherrmann/github-jira-integration/.github/workflows/reusable-create-jira-issue.yml@main
     with:
       secrets:
-      JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
-      JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
-      JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-      JIRA_PROJECT: ${{ secrets.JIRA_PROJECT }}
+        JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+        JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        JIRA_PROJECT: ${{ secrets.JIRA_PROJECT }}
