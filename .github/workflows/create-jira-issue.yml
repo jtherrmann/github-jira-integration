@@ -27,7 +27,7 @@ jobs:
         uses: atlassian/gajira-create@v3
         with:
           project: ${{ secrets.JIRA_PROJECT }}
-          issuetype: steps.get_jira_issue_type.outputs.type
+          issuetype: ${{ steps.get_jira_issue_type.outputs.type }}
           summary: ${{ github.event.issue.title }}
           description: ${{ github.event.issue.html_url }}
 
