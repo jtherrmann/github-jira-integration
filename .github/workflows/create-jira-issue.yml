@@ -1,4 +1,4 @@
-name: Create JIRA issue
+name: Create Jira issue
 
 on:
   issues:
@@ -6,17 +6,17 @@ on:
 
 jobs:
   create-jira-issue:
-    if: github.event.label.name == 'JIRA'
+    if: github.event.label.name == 'Jira'
     runs-on: ubuntu-latest
     steps:
-      - name: Login to JIRA
+      - name: Login to Jira
         uses: atlassian/gajira-login@v3
         env:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
 
-      - name: Create JIRA issue
+      - name: Create Jira issue
         id: create_jira_issue
         uses: atlassian/gajira-create@v3
         with:
@@ -25,10 +25,10 @@ jobs:
           summary: ${{ github.event.issue.title }}
           description: ${{ github.event.issue.html_url }}
 
-      - name: Add JIRA issue key to GitHub issue body
+      - name: Add Jira issue key to GitHub issue body
         uses: actions-cool/issues-helper@v3
         with:
           actions: update-issue
-          body: "**JIRA:** ${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create_jira_issue.outputs.issue }}\n\
+          body: "**Jira:** ${{ secrets.JIRA_BASE_URL }}/browse/${{ steps.create_jira_issue.outputs.issue }}\n\
             <!-- The previous line was added by GitHub Actions. It should remain as the first line in this description. -->\n\n\
             ${{ github.event.issue.body }}"
